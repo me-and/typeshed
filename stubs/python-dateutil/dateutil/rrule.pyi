@@ -1,17 +1,18 @@
 import datetime
 from _typeshed import Incomplete
 from collections.abc import Iterable, Iterator, Sequence
-from typing_extensions import TypeAlias
+from typing_extensions import Literal, TypeAlias
 
 from ._common import weekday as weekdaybase
 
-YEARLY: int
-MONTHLY: int
-WEEKLY: int
-DAILY: int
-HOURLY: int
-MINUTELY: int
-SECONDLY: int
+YEARLY: Literal[0]
+MONTHLY: Literal[1]
+WEEKLY: Literal[2]
+DAILY: Literal[3]
+HOURLY: Literal[4]
+MINUTELY: Literal[5]
+SECONDLY: Literal[6]
+_frequencies: TypeAlias = YEARLY | MONTHLY | WEEKLY | DAILY | HOURLY | MINUTELY | SECONDLY
 
 class weekday(weekdaybase): ...
 
@@ -38,7 +39,7 @@ class rrulebase:
 class rrule(rrulebase):
     def __init__(
         self,
-        freq,
+        freq: _frequencies,
         dtstart: datetime.date | None = None,
         interval: int = 1,
         wkst: weekday | int | None = None,
